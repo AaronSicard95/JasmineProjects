@@ -9,9 +9,17 @@ describe("Servers test (with setup and tear-down)", function() {
 
     expect(Object.keys(allServers).length).toEqual(1);
     expect(allServers['server' + serverId].serverName).toEqual('Alice');
+    expect(serverTbody.childElementCount).toEqual(1);
+    expect(serverTbody.firstChild.textContent).toEqual('Alice$0.00');
   });
+
+  
 
   afterEach(function() {
     // teardown logic
+    allServers = {};
+    serverId =0;
+    updateServerTable();
   });
+  afterAll(function(){console.log("done")});
 });
