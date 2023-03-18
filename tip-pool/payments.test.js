@@ -6,24 +6,27 @@ describe("Payments test (with setup and tear-down)", function() {
     });
   
     it('should add a new server to allServers on submitServerInfo()', function () {
-      createCurPayment();
+        expect(createCurPayment()).toEqual({
+          billAmt: '100',
+          tipAmt: '20',
+          tipPercent: 20});
+      submitPaymentInfo();
   
-      expect(allPayments.length).toEqual(1);
-      expect(paymentId).toEqual(1);
-      expect(createCurPayment()).toEqual({
-        billAmt: 100,
-        tipAmt: 20,
+      expect(allPayments['payment1']).toEqual({
+        billAmt: '100',
+        tipAmt: '20',
         tipPercent: 20});
-      expect(serverTbody.firstChild.textContent).toEqual('Alice$0.00');
+      expect(paymentId).toEqual(1);
     });
   
     
   
     afterEach(function() {
       // teardown logic
-      allServers = {};
-      serverId =0;
-      updateServerTable();
+      billAmtInput.value = "";
+      tipAmtInput.value = "";
+      paymentId = 0;
+      allPayments={};
     });
     afterAll(function(){console.log("done")});
   });
